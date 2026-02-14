@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تأثير كلمات الحب المتحركة</title>
+    <style>
+        /* إعدادات الخلفية والشاشة */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: sans-serif;
+        }
+
+        #ui {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* تنسيق الكلمة (حسب طلبك الأصلي) */
+        #ui .love_word {
+            color: #ea80b0;
+            font-size: 1.4rem;
+            transform:translateY(-100%) rotateZ(-30deg);
+            text-shadow: 0 0 10px #fff;
+            letter-spacing: 2px;
+            white-space: nowrap;
+            position: absolute;
+        }
+
+        /* تنسيق الحركة الأفقية */
+        #ui .love_horizontal {
+            position: absolute;
+            width: 100%;
+            animation: horizontal 10000ms infinite alternate ease-in-out;
+            /* توزيع وقت الحركة باستخدام المتغير i */
+            animation-delay: calc(var(--i) * -300ms);
+            top: var(--top);
+        }
+
+        /* تعريف الأنيميشن */
+        @keyframes horizontal {
+            from { 
+                transform: translateX(-20vw); 
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            to { 
+                transform: translateX(100vw); 
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="ui">
+    </div>
+
+<script>
+    const ui = document.getElementById('ui');
+    const words = ['Love', 'حب', 'Amour', 'Amore', 'Liebe'];
+    
+    // إنشاء 25 كلمة وتوزيعها عشوائياً
+    for (let i = 0; i < 25; i++) {
+        const container = document.createElement('div');
+        container.className = 'love_horizontal';
+        
+        // إعطاء قيم عشوائية لكل كلمة
+        container.style.setProperty('--i', i);
+        container.style.setProperty('--top', Math.random() * 100 + 'vh');
+        
+        const word = document.createElement('div');
+        word.className = 'love_word';
+        word.innerText = words[Math.floor(Math.random() * words.length)];
+        
+        container.appendChild(word);
+        ui.appendChild(container);
+    }
+</script>
+
+</body>
+</html>
